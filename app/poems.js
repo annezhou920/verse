@@ -104,8 +104,8 @@ const poemData = [
               but you are always too intense
               frightening in the way you want him
               unashamed and sacrificial
-              he tells you that no man can live up
-              to the one who
+              he tells you that no man can live
+              up to the one who
               lives in your head
               and you tried to change didn't you?
               closed your mouth more
@@ -123,7 +123,97 @@ const poemData = [
               you are terrifying
               and strange and beautiful
               something not everyone knows how to love.`
-    }
+    },
+    {
+      "id": 4,
+      "poet": "Fatimah Asghar",
+      "title": "If They Should Come for Us",
+      "verse": `
+              these are my people & I find
+              them on the street & shadow
+              through any wild all wild
+              my people my people
+              a dance of strangers in my blood
+              the old woman’s sari dissolving to wind
+              bindi a new moon on her forehead
+              I claim her my kin & sew
+              the star of her to my breast
+              the toddler dangling from stroller
+              hair a fountain of dandelion seed
+              at the bakery I claim them too
+              the sikh uncle at the airport
+              who apologizes for the pat
+              down the muslim man who abandons
+              his car at the traffic light drops
+              to his knees at the call of the azan
+              & the muslim man who sips
+              good whiskey at the start of maghrib
+              the lone khala at the park
+              pairing her kurta with crocs
+              my people my people I can’t be lost
+              when I see you my compass
+              is brown & gold & blood
+              my compass a muslim teenager
+              snapback & high-tops gracing
+              the subway platform
+              mashallah I claim them all
+              my country is made
+              in my people’s image
+              if they come for you they
+              come for me too in the dead
+              of winter a flock of
+              aunties step out on the sand
+              their dupattas turn to ocean
+              a colony of uncles grind their palms
+              & a thousand jasmines bell the air
+              my people I follow you like constellations
+              we hear the glass smashing the street
+              & the nights opening their dark
+              our names this country’s wood
+              for the fire my people my people
+              the long years we’ve survived the long
+              years yet to come I see you map
+              my sky the light your lantern long
+              ahead & I follow I follow`
+    },
+    {
+      "id": 5,
+      "poet": "Mai Der Vang",
+      "title": "Last Body",
+      "verse": `
+              I can’t leave my hurting skull
+              Or the rose apple opening inside me.
+
+              I’ll count the weeks, months,
+              Unfurling each numbered day in my hair.
+
+              Frost ribbons inside my brain,
+              Canals push up my leg.
+
+              I’m moving on
+              To what the world needs me to know.
+
+              I am the angel trapped inside the bullet.
+              I am the exit wound trapped inside the angel.
+
+              Am I the scarecrow
+              Perched at the end of the human trail.
+
+              I’ll palm cotton between my prayers
+              Until the universe has passed,
+
+              Waving down jellyfish
+              To volcano hours.
+
+              What force propels a bullet
+              From its chamber. Is it sourced by water
+
+              Trickling in a karst cave,
+              Or is it an angel’s gasp as she flees.
+
+              I can’t answer it all,
+              But my mask grows taller every year.`
+    },
   ]
 
 export default poemData

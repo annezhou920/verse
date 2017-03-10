@@ -32,9 +32,9 @@ class VerseScreen extends Component {
   }
 
   fetchPoem(){
-    let min = Math.ceil(poems[0].id)
-    let max = Math.floor(poems[poems.length - 1].id)
-    let randomPoemNum = Math.floor(Math.random()* (max-min + 1) + min);
+    let min = 0
+    let max = poems.length - 1
+    let randomPoemNum = Math.floor(Math.random() * (max - min + 1)) + min;
     this.setState({
       poem: {
         title: poems[randomPoemNum].title,
