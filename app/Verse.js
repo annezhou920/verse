@@ -34,24 +34,11 @@ class VerseScreen extends Component {
   }
 
   onSwipeLeft(gestureState) {
-    this.setState({myText: 'You swiped left!'});
+    this.fetchPoem()
   }
 
   onSwipeRight(gestureState) {
-    this.setState({myText: 'You swiped right!'});
-  }
-
-  onSwipe(gestureName, gestureState) {
-    const {SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
-    this.setState({gestureName: gestureName});
-    switch (gestureName) {
-      case SWIPE_LEFT:
-        this.setState({backgroundColor: 'blue'});
-        break;
-      case SWIPE_RIGHT:
-        this.setState({backgroundColor: 'green'});
-        break;
-    }
+    this.fetchPoem()
   }
 
   componentDidMount(){
@@ -134,7 +121,6 @@ class VerseScreen extends Component {
 
 
         <GestureRecognizer
-          onSwipe={(direction, state) => this.onSwipe(direction, state)}
           onSwipeLeft={(state) => this.onSwipeLeft(state)}
           onSwipeRight={(state) => this.onSwipeRight(state)}
           config={config}
@@ -154,10 +140,7 @@ class VerseScreen extends Component {
             </Text>
           </ScrollView>
 
-          <Text>onSwipe callback received gesture: {this.state.gestureName}</Text>
         </GestureRecognizer>
-
-
 
 
          <View style={styles.buttonContainer}>
