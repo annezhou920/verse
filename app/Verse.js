@@ -1,21 +1,28 @@
+import poems from './poems.js'
 import React, { Component } from 'react';
-import { StackNavigator, TabNavigator } from 'react-navigation'
 import {
   StyleSheet,
   Text,
   View,
   ScrollView,
   TouchableHighlight,
-  Picker
+  Picker,
+  TextInput,
+  Dimensions
 } from 'react-native';
-import poems from './poems.js'
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
+import { StackNavigator, TabNavigator } from 'react-navigation'
+import GestureRecognizer from 'react-native-swipe-gestures'
 
+const window = Dimensions.get('window')
 const Item = Picker.Item;
 const googleBaseUrl =
   "https://translation.googleapis.com/language/translate/v2?"
 const apiKey = "key=AIzaSyA7MUv6j75JssJAITGWYsN2vZh6AVLRtVI&"
 
+const config = {
+  velocityThreshold: 0.3,
+  directionalOffsetThreshold: 80
+};
 
 class VerseScreen extends Component {
   static navigationOptions = {
@@ -26,7 +33,7 @@ class VerseScreen extends Component {
     this.state = {
       selectedLang: poems[0].language,
       poem: poems[0],
-      myText: 'I\'m ready to get swiped!',
+      textInputValue: "",
       gestureName: 'none',
     }
     this.fetchPoem = this.fetchPoem.bind(this)
@@ -110,49 +117,58 @@ class VerseScreen extends Component {
   // }
 
   render() {
-
-    const config = {
-      velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80
-    };
-
     return (
-      <View style={styles.poemContainer}>
+
+      <View style={styles.container}>
 
 
-        <GestureRecognizer
-          onSwipeLeft={(state) => this.onSwipeLeft(state)}
-          onSwipeRight={(state) => this.onSwipeRight(state)}
-          config={config}
-          style={styles.poemContainer}>
+        <Picker style={styles.mask}
+          selectedValue={this.state.selectedLang}
+          onValueChange={this.translateText.bind(this, 'selectedLang')}
+          mode="dropdown">
+          <Item label="English" value="en" style={styles.item}/>
+          <Item label="Spanish" value="es" style={styles.item}/>
+          <Item label="Chinese" value="zh-CN" style={styles.item}/>
+          <Item label="Icelandic" value="is" style={styles.item}/>
+          <Item label="Arabic" value="ar" style={styles.item}/>
+        </Picker>
 
-          <ScrollView>
-            <Text style={styles.title}>
-              {this.state.poem.title}
-            </Text>
+        <View style={styles.poemContainer}>
+          <GestureRecognizer
+            onSwipeLeft={(state) => this.onSwipeLeft(state)}
+            onSwipeRight={(state) => this.onSwipeRight(state)}
+            config={config}
+            >
 
-            <Text style={styles.author}>
-              {this.state.poem.poet}
-            </Text>
+            <ScrollView>
+              <Text style={styles.title}>
+                {this.state.poem.title}
+              </Text>
 
-            <Text style={styles.text}>
-              {this.state.poem.lines.join("\n")}
-            </Text>
-          </ScrollView>
+              <Text style={styles.author}>
+                {this.state.poem.poet}
+              </Text>
 
-        </GestureRecognizer>
+              <Text style={styles.text}>
+                {this.state.poem.lines.join("\n")}
+              </Text>
+            </ScrollView>
 
+          </GestureRecognizer>
+          </View>
 
-         <View style={styles.buttonContainer}>
-          <TouchableHighlight
-            style={styles.button}
-            underlayColor='transparent'
-            onPress={this.fetchPoem}>
-            <Text style={styles.buttonText}>Shuffle</Text>
-          </TouchableHighlight>
-        </View>
+           <View style={styles.buttonContainer}>
+            <TouchableHighlight
+              style={styles.button}
+              underlayColor='transparent'
+              onPress={this.fetchPoem}>
+              <Text style={styles.buttonText}>Shuffle</Text>
+            </TouchableHighlight>
+          </View>
+
 
     </View>
+
 
 
     );
@@ -161,17 +177,30 @@ class VerseScreen extends Component {
 
 const styles = StyleSheet.create({
 
-
+  container: {
+    flex: 1
+  },
+  pickerContainer: {
+    padding: 0,
+    margin: 0,
+    height: 75,
+    borderWidth: 1,
+    borderColor: 'red'
+  },
+  item: {
+    flex: 1,
+    height: 30
+  },
+  mask: {
+    height: 35,
+    overflow: 'hidden',
+    justifyContent: 'space-around'
+  },
   poemContainer: {
     flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
     backgroundColor: 'darkseagreen'
-  },
-  picker: {
-    // flex: 0,
-    width: 100,
-    color: 'white'
   },
   title: {
     fontSize: 20,
@@ -197,7 +226,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height: 50,
-    marginTop: 20,
+    // marginTop: 20,
     backgroundColor: 'olive',
     justifyContent: 'center',
     alignItems: 'center'
