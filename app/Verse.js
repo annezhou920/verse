@@ -9,7 +9,7 @@ import {
   Picker
 } from 'react-native';
 import poems from './poems.js'
-import TabBar from './TabBar'
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
 
 const Item = Picker.Item;
 const googleBaseUrl =
@@ -25,10 +25,33 @@ class VerseScreen extends Component {
     super()
     this.state = {
       selectedLang: poems[0].language,
-      poem: poems[0]
+      poem: poems[0],
+      myText: 'I\'m ready to get swiped!',
+      gestureName: 'none',
     }
     this.fetchPoem = this.fetchPoem.bind(this)
     this.translateText = this.translateText.bind(this)
+  }
+
+  onSwipeLeft(gestureState) {
+    this.setState({myText: 'You swiped left!'});
+  }
+
+  onSwipeRight(gestureState) {
+    this.setState({myText: 'You swiped right!'});
+  }
+
+  onSwipe(gestureName, gestureState) {
+    const {SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
+    this.setState({gestureName: gestureName});
+    switch (gestureName) {
+      case SWIPE_LEFT:
+        this.setState({backgroundColor: 'blue'});
+        break;
+      case SWIPE_RIGHT:
+        this.setState({backgroundColor: 'green'});
+        break;
+    }
   }
 
   componentDidMount(){
@@ -45,7 +68,6 @@ class VerseScreen extends Component {
         title: poems[randomPoemNum].title,
         poet: poems[randomPoemNum].poet,
         language: poems[randomPoemNum].language,
-        // verse: poems[randomPoemNum].verse
         lines: poems[randomPoemNum].lines
       }
     })
@@ -102,34 +124,40 @@ class VerseScreen extends Component {
 
   render() {
 
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80
+    };
+
     return (
-
       <View style={styles.poemContainer}>
-      <Picker
-        selectedValue={this.state.selectedLang}
-        onValueChange={this.translateText.bind(this, 'selectedLang')}
-        mode="dropdown">
-        <Item label="English"   value="en" />
-        <Item label="Spanish"   value="es" />
-        <Item label="Chinese"   value="zh-CN" />
-        <Item label="Icelandic" value="is" />
-        <Item label="Arabic"    value="ar" />
-      </Picker>
 
 
-        <ScrollView>
-          <Text style={styles.title}>
-            {this.state.poem.title}
-          </Text>
+        <GestureRecognizer
+          onSwipe={(direction, state) => this.onSwipe(direction, state)}
+          onSwipeLeft={(state) => this.onSwipeLeft(state)}
+          onSwipeRight={(state) => this.onSwipeRight(state)}
+          config={config}
+          style={styles.poemContainer}>
 
-          <Text style={styles.author}>
-            {this.state.poem.poet}
-          </Text>
+          <ScrollView>
+            <Text style={styles.title}>
+              {this.state.poem.title}
+            </Text>
 
-          <Text style={styles.text}>
-            {this.state.poem.lines.join("\n")}
-          </Text>
-        </ScrollView>
+            <Text style={styles.author}>
+              {this.state.poem.poet}
+            </Text>
+
+            <Text style={styles.text}>
+              {this.state.poem.lines.join("\n")}
+            </Text>
+          </ScrollView>
+
+          <Text>onSwipe callback received gesture: {this.state.gestureName}</Text>
+        </GestureRecognizer>
+
+
 
 
          <View style={styles.buttonContainer}>
