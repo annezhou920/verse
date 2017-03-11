@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation'
 import GestureRecognizer from 'react-native-swipe-gestures'
+import LinearGradient from 'react-native-linear-gradient'
 
 const Item = Picker.Item;
 const googleBaseUrl =
@@ -162,12 +163,13 @@ class VerseScreen extends Component {
             </GestureRecognizer>
           </View>
 
+
            <View style={styles.buttonContainer}>
             <TouchableHighlight
               style={styles.button}
               underlayColor='transparent'
               onPress={this.fetchPoem}>
-              <Text style={styles.buttonText}>Shuffle</Text>
+              <Text style={styles.buttonText}>🔀</Text>
             </TouchableHighlight>
           </View>
 
@@ -182,20 +184,21 @@ class VerseScreen extends Component {
 const styles = StyleSheet.create({
 
   container: {
-    flex: 1
+    flex: 1,
   },
   item: {
     flex: 1,
-    height: 30
+    height: 30,
   },
   mask: {
     height: 35,
     overflow: 'hidden',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    backgroundColor: '#eef5fb',
   },
   poemContainer: {
     flex: 1,
-    backgroundColor: 'darkseagreen'
+    backgroundColor: '#8db8e2',
   },
   title: {
     fontSize: 20,
@@ -203,14 +206,19 @@ const styles = StyleSheet.create({
     margin: 5,
     marginLeft: 50,
     marginTop: 40,
-    color: 'white'
+    color: 'white',
+    fontWeight: 'bold',
+    fontFamily: "Futura",
+    paddingRight: 50,
   },
   author: {
-    fontSize: 15,
+    fontSize: 17,
     marginLeft: 50,
     textAlign: 'left',
     color: 'white',
-    paddingBottom: 10
+    paddingBottom: 10,
+    fontFamily: "Futura",
+    paddingRight: 50,
   },
   text: {
     textAlign: 'left',
@@ -218,11 +226,13 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     marginLeft: 50,
     color: 'white',
-    marginRight: 50,
+    fontSize: 16,
+    fontFamily: "Futura",
+    paddingRight: 50,
   },
   buttonContainer: {
     height: 40,
-    backgroundColor: 'olive',
+    backgroundColor: '#407dc5',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -235,6 +245,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     color: 'white',
+    fontFamily: "Futura"
   },
   activity: {
     alignItems: 'center',
