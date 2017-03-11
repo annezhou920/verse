@@ -7,13 +7,11 @@ import {
   ScrollView,
   TouchableHighlight,
   Picker,
-  TextInput,
-  Dimensions
+  ActivityIndicator,
 } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation'
 import GestureRecognizer from 'react-native-swipe-gestures'
 
-const window = Dimensions.get('window')
 const Item = Picker.Item;
 const googleBaseUrl =
   "https://translation.googleapis.com/language/translate/v2?"
@@ -33,8 +31,7 @@ class VerseScreen extends Component {
     this.state = {
       selectedLang: poems[0].language,
       poem: poems[0],
-      textInputValue: "",
-      gestureName: 'none',
+      animating: false
     }
     this.fetchPoem = this.fetchPoem.bind(this)
     this.translateText = this.translateText.bind(this)
@@ -68,7 +65,10 @@ class VerseScreen extends Component {
   }
 
   translateText(key, newLang){
-    this.setState({ selectedLang: newLang })
+    this.setState({
+      selectedLang: newLang,
+      animating: true
+    })
 
     let currentPoem = this.state.poem
     let baseUrl = googleBaseUrl + apiKey
@@ -88,73 +88,78 @@ class VerseScreen extends Component {
             translatedText.push(translation.translatedText)
           })
           this.setState({
+            animating: false,
             poem: {
               language: newLang,
               title: translatedText.pop(),
               poet: poet,
-              lines: translatedText
+              lines: translatedText,
             }
           })
 
         })
         .done();
+
   }
 
-  // renderLoading(){
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text>
-  //         Translating poem from {this.state.poem.language} to {this.state.selectedLang}
-  //       </Text>
-  //     </View>
-  //   )
-  // }
-  //
-  // renderPoem(){
-  //   return (
-  //
-  //   )
-  // }
+  render(){
+    if ( this.state.animating === true ) {
+      return this.renderLoading();
+    }
+    return this.renderPoem();
+  }
 
-  render() {
+  renderLoading(){
     return (
-
       <View style={styles.container}>
-
-
-        <Picker style={styles.mask}
-          selectedValue={this.state.selectedLang}
-          onValueChange={this.translateText.bind(this, 'selectedLang')}
-          mode="dropdown">
-          <Item label="English" value="en" style={styles.item}/>
-          <Item label="Spanish" value="es" style={styles.item}/>
-          <Item label="Chinese" value="zh-CN" style={styles.item}/>
-          <Item label="Icelandic" value="is" style={styles.item}/>
-          <Item label="Arabic" value="ar" style={styles.item}/>
-        </Picker>
-
         <View style={styles.poemContainer}>
-          <GestureRecognizer
-            onSwipeLeft={(state) => this.onSwipeLeft(state)}
-            onSwipeRight={(state) => this.onSwipeRight(state)}
-            config={config}
-            >
+          <ActivityIndicator
+             animating={this.state.animating}
+             style={styles.activity}
+             size="large"
+             color="white"
+           />
+        </View>
+      </View>
+    )
+  }
 
-            <ScrollView>
-              <Text style={styles.title}>
-                {this.state.poem.title}
-              </Text>
+  renderPoem(){
+    return (
+      <View style={styles.container}>
+          <Picker style={styles.mask}
+            selectedValue={this.state.selectedLang}
+            onValueChange={this.translateText.bind(this, 'selectedLang')}
+            mode="dropdown">
+            <Item label="English" value="en" style={styles.item}/>
+            <Item label="Spanish" value="es" style={styles.item}/>
+            <Item label="Chinese" value="zh-CN" style={styles.item}/>
+            <Item label="Icelandic" value="is" style={styles.item}/>
+            <Item label="Arabic" value="ar" style={styles.item}/>
+          </Picker>
 
-              <Text style={styles.author}>
-                {this.state.poem.poet}
-              </Text>
 
-              <Text style={styles.text}>
-                {this.state.poem.lines.join("\n")}
-              </Text>
-            </ScrollView>
+          <View style={styles.poemContainer}>
+            <GestureRecognizer
+              onSwipeLeft={(state) => this.onSwipeLeft(state)}
+              onSwipeRight={(state) => this.onSwipeRight(state)}
+              config={config}>
 
-          </GestureRecognizer>
+              <ScrollView>
+                <Text style={styles.title}>
+                  {this.state.poem.title}
+                </Text>
+
+                <Text style={styles.author}>
+                  {this.state.poem.poet}
+                </Text>
+
+                <Text style={styles.text}>
+                  {this.state.poem.lines.join("\n")}
+                </Text>
+              </ScrollView>
+
+            </GestureRecognizer>
           </View>
 
            <View style={styles.buttonContainer}>
@@ -170,8 +175,7 @@ class VerseScreen extends Component {
     </View>
 
 
-
-    );
+    )
   }
 }
 
@@ -179,13 +183,6 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1
-  },
-  pickerContainer: {
-    padding: 0,
-    margin: 0,
-    height: 75,
-    borderWidth: 1,
-    borderColor: 'red'
   },
   item: {
     flex: 1,
@@ -198,8 +195,6 @@ const styles = StyleSheet.create({
   },
   poemContainer: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: 'darkseagreen'
   },
   title: {
@@ -207,6 +202,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     margin: 5,
     marginLeft: 50,
+    marginTop: 40,
     color: 'white'
   },
   author: {
@@ -225,14 +221,12 @@ const styles = StyleSheet.create({
     marginRight: 50,
   },
   buttonContainer: {
-    height: 50,
-    // marginTop: 20,
+    height: 40,
     backgroundColor: 'olive',
     justifyContent: 'center',
     alignItems: 'center'
   },
   button: {
-    // backgroundColor: '#eee',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -242,6 +236,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: 'white',
   },
+  activity: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
+    height: 100
+  }
 });
 
 const Verse = StackNavigator({
