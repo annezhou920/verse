@@ -11,9 +11,8 @@ import {
   Image,
   Dimensions
 } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation'
+import {StackNavigator} from 'react-navigation'
 import GestureRecognizer from 'react-native-swipe-gestures'
-import LinearGradient from 'react-native-linear-gradient'
 
 const window = Dimensions.get('window');
 const Item = Picker.Item;
@@ -146,6 +145,11 @@ class VerseScreen extends Component {
             <Item label="Arabic" value="ar" style={styles.item}/>
           </Picker>
 
+          <Image
+          source={{uri: this.state.poem.image}}
+          style={styles.image}
+          >
+          </Image>
 
           <View style={styles.poemContainer}>
             <GestureRecognizer
@@ -154,11 +158,6 @@ class VerseScreen extends Component {
               config={config}>
 
               <ScrollView>
-                <Image
-                source={{uri: this.state.poem.image}}
-                style={styles.image}
-                >
-                </Image>
 
                 <Text style={styles.title}>
                   {this.state.poem.title}
@@ -215,14 +214,16 @@ const styles = StyleSheet.create({
   },
   image: {
     width: window.width,
-    height: 100
+    height: 150,
+    resizeMode: 'cover',
+    alignItems: 'center'
   },
   title: {
     fontSize: 20,
     textAlign: 'left',
     margin: 5,
     marginLeft: 50,
-    marginTop: 40,
+    marginTop: 30,
     color: 'white',
     fontWeight: 'bold',
     fontFamily: "Futura",
@@ -233,7 +234,7 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     textAlign: 'left',
     color: 'white',
-    paddingBottom: 10,
+    paddingBottom: 20,
     fontFamily: "Futura",
     paddingRight: 50,
   },
@@ -252,8 +253,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#407dc5',
     justifyContent: 'center',
     alignItems: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   buttonText: {
     fontSize: 15,
