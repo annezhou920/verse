@@ -1,4 +1,5 @@
-import poems from './poems.js'
+import poems from './poems'
+import Loading from './Loading'
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -7,7 +8,6 @@ import {
   ScrollView,
   TouchableHighlight,
   Picker,
-  ActivityIndicator,
   Image,
   Dimensions
 } from 'react-native';
@@ -29,8 +29,8 @@ class VerseScreen extends Component {
   static navigationOptions = {
     title: 'Verse'
   }
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       selectedLang: poems[0].language,
       poem: poems[0],
@@ -58,13 +58,7 @@ class VerseScreen extends Component {
     let randomPoemNum = Math.floor(Math.random() * (max - min + 1)) + min;
     this.setState({
       selectedLang: poems[randomPoemNum].language,
-      poem: {
-        image: poems[randomPoemNum].image,
-        title: poems[randomPoemNum].title,
-        poet: poems[randomPoemNum].poet,
-        language: poems[randomPoemNum].language,
-        lines: poems[randomPoemNum].lines
-      }
+      poem: poems[randomPoemNum]
     })
   }
 
@@ -74,22 +68,16 @@ class VerseScreen extends Component {
       animating: true
     })
 
-    let currentPoem = this.state.poem
-    let image = currentPoem.image
-    let lines = currentPoem.lines
-    let poet = currentPoem.poet
-    let title = currentPoem.title
-
     let baseUrl = googleBaseUrl + apiKey
-    let currentLang = "source=" + currentPoem.language + "&"
+    let currentLang = "source=" + this.state.poem.language + "&"
     let targetLang = "target=" + newLang + "&q="
-    let queryString = lines.join("&q=") + "&q=" + title
+    let queryString = this.state.poem.lines.join("&q=") + "&q=" + this.state.poem.title
     let fetchUrl = baseUrl + currentLang + targetLang + queryString
 
     fetch(fetchUrl, {method: "GET"})
         .then((res) => res.json())
         .then((resData) => {
-          translatedText = []
+          let translatedText = []
           resData.data.translations.forEach(function(translation){
             translatedText.push(translation.translatedText)
           })
@@ -98,9 +86,9 @@ class VerseScreen extends Component {
             poem: {
               language: newLang,
               title: translatedText.pop(),
-              poet: poet,
+              poet: this.state.poem.poet,
               lines: translatedText,
-              image: image
+              image: this.state.poem.image
             }
           })
 
@@ -110,84 +98,62 @@ class VerseScreen extends Component {
   }
 
   render(){
-    if ( this.state.animating === true ) {
-      return this.renderLoading();
-    }
-    return this.renderPoem();
-  }
-
-  renderLoading(){
     return (
-      <View style={styles.container}>
-        <View style={styles.poemContainer}>
-          <ActivityIndicator
-             animating={this.state.animating}
-             style={styles.activity}
-             size="large"
-             color="white"
-           />
-        </View>
-      </View>
-    )
-  }
+      this.state.animating ? <Loading animating={this.state.animating} /> :
 
-  renderPoem(){
-    return (
       <View style={styles.container}>
-          <Picker style={styles.mask}
-            selectedValue={this.state.selectedLang}
-            onValueChange={this.translateText.bind(this, 'selectedLang')}
-            mode="dropdown">
+        <Picker style={styles.mask}
+          selectedValue={this.state.selectedLang}
+          onValueChange={this.translateText.bind(this, 'selectedLang')}
+          mode="dropdown">
             <Item label="English" value="en" style={styles.item}/>
             <Item label="Spanish" value="es" style={styles.item}/>
             <Item label="Chinese" value="zh-CN" style={styles.item}/>
             <Item label="Icelandic" value="is" style={styles.item}/>
             <Item label="Arabic" value="ar" style={styles.item}/>
-          </Picker>
+        </Picker>
 
-          <Image
+        <Image
           source={{uri: this.state.poem.image}}
-          style={styles.image}
-          >
-          </Image>
+          style={styles.image}>
+        </Image>
 
-          <View style={styles.poemContainer}>
-            <GestureRecognizer
-              onSwipeLeft={(state) => this.onSwipeLeft(state)}
-              onSwipeRight={(state) => this.onSwipeRight(state)}
-              config={config}>
+        <View style={styles.poemContainer}>
+          <GestureRecognizer
+            onSwipeLeft={(state) => this.onSwipeLeft(state)}
+            onSwipeRight={(state) => this.onSwipeRight(state)}
+            config={config}>
 
-              <ScrollView>
+            <ScrollView>
+              <Text style={styles.title}>
+                {this.state.poem.title}
+              </Text>
+              <Text style={styles.author}>
+                {this.state.poem.poet}
+              </Text>
+              <Text style={styles.text}>
+                {this.state.poem.lines.join("\n")}
+              </Text>
+            </ScrollView>
+          </GestureRecognizer>
+        </View>
 
-                <Text style={styles.title}>
-                  {this.state.poem.title}
-                </Text>
+        <View style={{flexDirection: 'row'}}>
+        <TouchableHighlight
+          style={styles.buttonContainer}
+          underlayColor='#407dc5'
+          onPress={this.fetchPoem}>
+          <Text style={styles.buttonText}>🔀</Text>
+        </TouchableHighlight>
 
-                <Text style={styles.author}>
-                  {this.state.poem.poet}
-                </Text>
-
-                <Text style={styles.text}>
-                  {this.state.poem.lines.join("\n")}
-                </Text>
-              </ScrollView>
-
-            </GestureRecognizer>
-          </View>
-
-
-
-            <TouchableHighlight
-              style={styles.buttonContainer}
-              underlayColor='#407dc5'
-              onPress={this.fetchPoem}>
-              <Text style={styles.buttonText}>🔀</Text>
-            </TouchableHighlight>
-
-
-
+        <TouchableHighlight
+          style={styles.buttonContainer}
+          underlayColor='#407dc5'
+          onPress={this.fetchPoem}>
+          <Text style={styles.buttonText}>📖</Text>
+        </TouchableHighlight>
+        </View>
     </View>
-
 
     )
   }
@@ -250,6 +216,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height: 40,
+    width: window.width / 2,
     backgroundColor: '#407dc5',
     justifyContent: 'center',
     alignItems: 'center',
@@ -261,12 +228,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: "Futura"
   },
-  activity: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
-    height: 100
-  }
 });
 
 const Verse = StackNavigator({
