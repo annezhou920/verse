@@ -8,11 +8,14 @@ import {
   TouchableHighlight,
   Picker,
   ActivityIndicator,
+  Image,
+  Dimensions
 } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import LinearGradient from 'react-native-linear-gradient'
 
+const window = Dimensions.get('window');
 const Item = Picker.Item;
 const googleBaseUrl =
   "https://translation.googleapis.com/language/translate/v2?"
@@ -57,6 +60,7 @@ class VerseScreen extends Component {
     this.setState({
       selectedLang: poems[randomPoemNum].language,
       poem: {
+        image: poems[randomPoemNum].image,
         title: poems[randomPoemNum].title,
         poet: poems[randomPoemNum].poet,
         language: poems[randomPoemNum].language,
@@ -72,12 +76,14 @@ class VerseScreen extends Component {
     })
 
     let currentPoem = this.state.poem
-    let baseUrl = googleBaseUrl + apiKey
-    let currentLang = "source=" + currentPoem.language + "&"
-    let targetLang = "target=" + newLang + "&q="
+    let image = currentPoem.image
     let lines = currentPoem.lines
     let poet = currentPoem.poet
     let title = currentPoem.title
+
+    let baseUrl = googleBaseUrl + apiKey
+    let currentLang = "source=" + currentPoem.language + "&"
+    let targetLang = "target=" + newLang + "&q="
     let queryString = lines.join("&q=") + "&q=" + title
     let fetchUrl = baseUrl + currentLang + targetLang + queryString
 
@@ -95,6 +101,7 @@ class VerseScreen extends Component {
               title: translatedText.pop(),
               poet: poet,
               lines: translatedText,
+              image: image
             }
           })
 
@@ -147,6 +154,12 @@ class VerseScreen extends Component {
               config={config}>
 
               <ScrollView>
+                <Image
+                source={{uri: this.state.poem.image}}
+                style={styles.image}
+                >
+                </Image>
+
                 <Text style={styles.title}>
                   {this.state.poem.title}
                 </Text>
@@ -164,14 +177,14 @@ class VerseScreen extends Component {
           </View>
 
 
-           <View style={styles.buttonContainer}>
+
             <TouchableHighlight
-              style={styles.button}
-              underlayColor='transparent'
+              style={styles.buttonContainer}
+              underlayColor='#407dc5'
               onPress={this.fetchPoem}>
               <Text style={styles.buttonText}>🔀</Text>
             </TouchableHighlight>
-          </View>
+
 
 
     </View>
@@ -199,6 +212,10 @@ const styles = StyleSheet.create({
   poemContainer: {
     flex: 1,
     backgroundColor: '#8db8e2',
+  },
+  image: {
+    width: window.width,
+    height: 100
   },
   title: {
     fontSize: 20,
@@ -234,9 +251,7 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: '#407dc5',
     justifyContent: 'center',
-    alignItems: 'center'
-  },
-  button: {
+    alignItems: 'center',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -258,9 +273,5 @@ const styles = StyleSheet.create({
 const Verse = StackNavigator({
   Home: { screen: VerseScreen },
 });
-
-// const Verse = StackNavigator({
-//   Home: { screen: TabBar },
-// });
 
 export default Verse

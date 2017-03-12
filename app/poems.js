@@ -3,6 +3,7 @@ const poemData = [
   {
     "id": 1,
     "language": "en",
+    "image": "http://i789.photobucket.com/albums/yy172/thehlmn/For%20Harriet/Audre-Lorde-in-front-of-a-007.jpg",
     "poet": "Audre Lorde",
     "title": "A Woman Speaks",
     "lines" : [
@@ -47,6 +48,7 @@ const poemData = [
   {
     "id": 2,
     "language": "en",
+    "image": "https://i.ytimg.com/vi/1YdeDWeUf9g/maxresdefault.jpg",
     "poet": "Carl Phillips",
     "title": "Blue",
     "lines" : [
@@ -90,6 +92,7 @@ const poemData = [
   {
     "id": 3,
     "language": "en",
+    "image": "http://www.newyorker.com/wp-content/uploads/2015/10/Okeowo-Warsan-Shire-1200-630-21121453.jpg",
     "poet": "Warsan Shire",
     "title": "For Women Who Are Difficult to Love",
     "lines": [
@@ -134,6 +137,7 @@ const poemData = [
   {
     "id": 4,
     "language": "en",
+    "image": "https://fatimahasghar.files.wordpress.com/2014/11/cropped-fatimah_portrait_01_jason-riker_.jpg",
     "poet": "Fatimah Asghar",
     "title": "If They Should Come for Us",
     "lines": [
@@ -188,6 +192,7 @@ const poemData = [
   {
     "id": 5,
     "language": "en",
+    "image": "http://www.fresnobee.com/news/local/ibjucp/picture67888242/ALTERNATES/FREE_640/mai%20der%20vang",
     "poet": "Mai Der Vang",
     "title": "Last Body",
     "lines": [
