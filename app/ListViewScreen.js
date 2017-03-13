@@ -6,7 +6,9 @@ import {
   View,
   ListView,
   StyleSheet,
+  TouchableHighlight
 } from 'react-native';
+import {StackNavigator, StackRouter} from 'react-navigation'
 
 const sortedPoems = poems.sort(function(a, b) {
   var nameA = a.poet.toUpperCase(); // ignore upper and lowercase
@@ -29,12 +31,18 @@ export default class ListViewScreen extends Component {
         dataSource: ds.cloneWithRows(sortedPoems)
       };
     }
+
     render() {
+      const {state} = this.props.navigation;
+
       return (
         <View style={styles.container}>
           <ListView
+
             dataSource={this.state.dataSource}
-            renderRow={(sortedPoems) => <Row {...sortedPoems} />}
+
+            renderRow={(sortedPoems) => <Row {...sortedPoems} sendProps={this.props.navigation} />}
+
             renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
             renderHeader={() => <SearchBar />}
           />
@@ -42,6 +50,8 @@ export default class ListViewScreen extends Component {
       );
     }
   }
+
+
 
   const styles = StyleSheet.create({
     container: {

@@ -27,6 +27,13 @@ export default class ProfileScreen extends Component {
             <ScrollView>
               <Text style={styles.title}>{state.params.poem.poet}</Text>
               <Text style={styles.text}>{state.params.poem.bio}</Text>
+              <Text style={styles.title}>Poems</Text>
+              <Text
+                style={styles.text}
+                onPress={() => this.props.navigation.goBack()}
+                >
+                {state.params.poem.title}
+              </Text>
             </ScrollView>
           </View>
         </View>
