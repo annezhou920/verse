@@ -41,7 +41,7 @@ export default class ListViewScreen extends Component {
 
             dataSource={this.state.dataSource}
 
-            renderRow={(sortedPoems) => <Row {...sortedPoems} sendProps={this.props.navigation} />}
+            renderRow={(sortedPoems) => <Row {...sortedPoems} sendProps={this.props.navigation} data={this.state.dataSource} />}
 
             renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
             renderHeader={() => <SearchBar />}

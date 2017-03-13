@@ -22,6 +22,14 @@ import poems from './poems'
 //
 // export default Row;
 
+const sortedPoems = poems.sort(function(a, b) {
+  var nameA = a.poet.toUpperCase(); // ignore upper and lowercase
+  var nameB = b.poet.toUpperCase(); // ignore upper and lowercase
+  if (nameA < nameB) return -1;
+  if (nameA > nameB) return 1;
+  return 0; // names must be equal
+});
+
 
 export default class Row extends Component {
   static navigationOptions = {
@@ -38,7 +46,10 @@ export default class Row extends Component {
 
   render() {
     // const {navigate} = this.props.navigation
-    console.log('props', this.props)
+
+    // var ids = this.props.id
+    console.log(this.props)
+
     return (
       <View
         style={styles.container}
@@ -47,7 +58,7 @@ export default class Row extends Component {
         <Image source={{ uri: this.props.image}} style={styles.photo} />
         <TouchableHighlight
           underlayColor='transparent'
-          onPress={() => this.props.sendProps.navigate('Profile', {poem: poems[0]})}
+          onPress={() => this.props.sendProps.navigate('Profile', {poem: sortedPoems[this.props.id]})}
           >
           <Text style={styles.text}>{this.props.poet}</Text>
         </TouchableHighlight>
@@ -56,23 +67,6 @@ export default class Row extends Component {
 
   }
 }
-
-// const Verse = StackNavigator({
-//   Home: {
-//     screen: VerseScreen,
-//     path: ''
-//   },
-//   ListView: {
-//     screen: ListViewScreen,
-//     path: 'listView'
-//   },
-//   Profile: {
-//     screen: ProfileScreen,
-//   }
-// }, {
-//   initialRouteName: 'Home'
-// });
-
 
 const styles = StyleSheet.create({
   container: {
