@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
   ActivityIndicator,
 } from 'react-native';
-
 
 const Loading = (props) => (
   <View style={styles.container}>
@@ -20,23 +19,6 @@ const Loading = (props) => (
 )
 
 export default Loading
-
-// export default class Loading extends Component {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <View style={styles.poemContainer}>
-//           <ActivityIndicator
-//              animating={this.props.animating}
-//              style={styles.activity}
-//              size="large"
-//              color="white"
-//            />
-//         </View>
-//       </View>
-//     );
-//   }
-// }
 
 var styles = StyleSheet.create({
   container: {

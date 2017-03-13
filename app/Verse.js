@@ -1,6 +1,5 @@
 import poems from './poems'
 import Loading from './Loading'
-// import VerseScreen from './VerseScreen'
 import ListViewScreen from './ListViewScreen'
 import React, { Component } from 'react';
 import {
@@ -14,7 +13,7 @@ import {
   Dimensions,
   Navigator
 } from 'react-native';
-import {StackNavigator, TabNavigator} from 'react-navigation'
+import {StackNavigator} from 'react-navigation'
 import GestureRecognizer from 'react-native-swipe-gestures'
 
 const window = Dimensions.get('window');
@@ -108,16 +107,16 @@ class VerseScreen extends Component {
 
       <View style={styles.container}>
 
-        <Picker style={styles.mask}
-          selectedValue={this.state.selectedLang}
-          onValueChange={this.translateText.bind(this, 'selectedLang')}
-          mode="dropdown">
-            <Item label="English" value="en" style={styles.item}/>
-            <Item label="Spanish" value="es" style={styles.item}/>
-            <Item label="Chinese" value="zh-CN" style={styles.item}/>
-            <Item label="Icelandic" value="is" style={styles.item}/>
-            <Item label="Arabic" value="ar" style={styles.item}/>
-        </Picker>
+      <Picker style={styles.mask}
+        selectedValue={this.state.selectedLang}
+        onValueChange={this.translateText.bind(this, 'selectedLang')}
+        mode="dropdown">
+          <Item label="English" value="en" style={styles.item}/>
+          <Item label="Spanish" value="es" style={styles.item}/>
+          <Item label="Chinese" value="zh-CN" style={styles.item}/>
+          <Item label="Icelandic" value="is" style={styles.item}/>
+          <Item label="Arabic" value="ar" style={styles.item}/>
+      </Picker>
 
         <Image
           source={{uri: this.state.poem.image}}
@@ -148,15 +147,15 @@ class VerseScreen extends Component {
           <TouchableHighlight
             style={styles.buttonContainer}
             underlayColor='#407dc5'
-            onPress={this.fetchPoem}>
-            <Text style={styles.buttonText}>🔀</Text>
+            onPress={() => navigate('ListView')}>
+            <Text style={styles.buttonText}>📖</Text>
           </TouchableHighlight>
 
           <TouchableHighlight
             style={styles.buttonContainer}
             underlayColor='#407dc5'
-            onPress={() => navigate('ListView')}>
-            <Text style={styles.buttonText}>📖</Text>
+            onPress={this.fetchPoem}>
+            <Text style={styles.buttonText}>🔀</Text>
           </TouchableHighlight>
         </View>
     </View>
