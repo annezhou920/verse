@@ -1,5 +1,7 @@
 import poems from './poems'
 import Loading from './Loading'
+// import VerseScreen from './VerseScreen'
+import ListViewScreen from './ListViewScreen'
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -9,9 +11,10 @@ import {
   TouchableHighlight,
   Picker,
   Image,
-  Dimensions
+  Dimensions,
+  Navigator
 } from 'react-native';
-import {StackNavigator} from 'react-navigation'
+import {StackNavigator, TabNavigator} from 'react-navigation'
 import GestureRecognizer from 'react-native-swipe-gestures'
 
 const window = Dimensions.get('window');
@@ -98,10 +101,13 @@ class VerseScreen extends Component {
   }
 
   render(){
+    const {navigate} = this.props.navigation
+
     return (
       this.state.animating ? <Loading animating={this.state.animating} /> :
 
       <View style={styles.container}>
+
         <Picker style={styles.mask}
           selectedValue={this.state.selectedLang}
           onValueChange={this.translateText.bind(this, 'selectedLang')}
@@ -139,25 +145,30 @@ class VerseScreen extends Component {
         </View>
 
         <View style={{flexDirection: 'row'}}>
-        <TouchableHighlight
-          style={styles.buttonContainer}
-          underlayColor='#407dc5'
-          onPress={this.fetchPoem}>
-          <Text style={styles.buttonText}>🔀</Text>
-        </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.buttonContainer}
+            underlayColor='#407dc5'
+            onPress={this.fetchPoem}>
+            <Text style={styles.buttonText}>🔀</Text>
+          </TouchableHighlight>
 
-        <TouchableHighlight
-          style={styles.buttonContainer}
-          underlayColor='#407dc5'
-          onPress={this.fetchPoem}>
-          <Text style={styles.buttonText}>📖</Text>
-        </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.buttonContainer}
+            underlayColor='#407dc5'
+            onPress={() => navigate('ListView')}>
+            <Text style={styles.buttonText}>📖</Text>
+          </TouchableHighlight>
         </View>
     </View>
 
     )
   }
 }
+
+const Verse = StackNavigator({
+  Home: { screen: VerseScreen },
+  ListView: { screen: ListViewScreen }
+});
 
 const styles = StyleSheet.create({
 
@@ -206,7 +217,6 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'left',
-    color: '#333333',
     marginBottom: 50,
     marginLeft: 50,
     color: 'white',
@@ -230,8 +240,5 @@ const styles = StyleSheet.create({
   },
 });
 
-const Verse = StackNavigator({
-  Home: { screen: VerseScreen },
-});
 
 export default Verse
