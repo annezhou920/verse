@@ -1,6 +1,8 @@
 import poems from './poems'
 import Loading from './Loading'
+import Photo from './Photo'
 import ListViewScreen from './ListViewScreen'
+import ProfileScreen from './ProfileScreen'
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -11,9 +13,8 @@ import {
   Picker,
   Image,
   Dimensions,
-  Navigator
 } from 'react-native';
-import {StackNavigator} from 'react-navigation'
+import {StackNavigator, StackRouter} from 'react-navigation'
 import GestureRecognizer from 'react-native-swipe-gestures'
 
 const window = Dimensions.get('window');
@@ -28,6 +29,7 @@ const config = {
 };
 
 class VerseScreen extends Component {
+
   static navigationOptions = {
     title: 'Verse'
   }
@@ -118,10 +120,7 @@ class VerseScreen extends Component {
           <Item label="Arabic" value="ar" style={styles.item}/>
       </Picker>
 
-        <Image
-          source={{uri: this.state.poem.image}}
-          style={styles.image}>
-        </Image>
+        <Photo source={{uri: this.state.poem.image}} />
 
         <View style={styles.poemContainer}>
           <GestureRecognizer
@@ -130,12 +129,20 @@ class VerseScreen extends Component {
             config={config}>
 
             <ScrollView>
-              <Text style={styles.title}>
-                {this.state.poem.title}
-              </Text>
+                <Text style={styles.title}>
+                  {this.state.poem.title}
+                </Text>
+
+            <TouchableHighlight
+              underlayColor='transparent'
+              onPress={() => navigate('Profile', {poem: this.state.poem})}
+              >
               <Text style={styles.author}>
                 {this.state.poem.poet}
               </Text>
+            </TouchableHighlight>
+
+
               <Text style={styles.text}>
                 {this.state.poem.lines.join("\n")}
               </Text>
@@ -165,8 +172,19 @@ class VerseScreen extends Component {
 }
 
 const Verse = StackNavigator({
-  Home: { screen: VerseScreen },
-  ListView: { screen: ListViewScreen }
+  Home: {
+    screen: VerseScreen,
+    path: ''
+  },
+  ListView: {
+    screen: ListViewScreen,
+    path: 'listView'
+  },
+  Profile: {
+    screen: ProfileScreen,
+  }
+}, {
+  initialRouteName: 'Home'
 });
 
 const styles = StyleSheet.create({
@@ -185,21 +203,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#eef5fb',
   },
   poemContainer: {
-    flex: 1,
+    flex: 2,
     backgroundColor: '#8db8e2',
-  },
-  image: {
-    width: window.width,
-    height: 150,
-    resizeMode: 'cover',
-    alignItems: 'center'
   },
   title: {
     fontSize: 20,
     textAlign: 'left',
     margin: 5,
     marginLeft: 50,
-    marginTop: 30,
+    marginTop: 20,
     color: 'white',
     fontWeight: 'bold',
     fontFamily: "Futura",

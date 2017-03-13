@@ -42,7 +42,9 @@ const poemData = [
       "I am",
       "woman",
       "and not white."
-    ]
+    ],
+    "bio":
+      `A self-described “black, lesbian, mother, warrior, poet,” Audre Lorde dedicated both her life and her creative talent to confronting and addressing the injustices of racism, sexism, and homophobia. Her poetry, and “indeed all of her writing,” according to contributor Joan Martin in Black Women Writers (1950-1980): A Critical Evaluation, “rings with passion, sincerity, perception, and depth of feeling.” Concerned with modern society’s tendency to categorize groups of people, Lorde fought the marginalization of such categories as “lesbian” and “black woman,” thereby empowering her readers to react to the prejudice in their own lives.`
   },
   {
     "id": 2,
@@ -86,7 +88,9 @@ const poemData = [
       "Apparently misinformed about the rumored",
       "stuff of dreams: everywhere I inquired,",
       "I was told look for blue."
-    ]
+    ],
+    "bio":
+      `A classicist by training, Phillips often employs classical forms and makes allusions to classical literature, art, and music. While in his teens, Phillips began to write poetry. “I was a nerdy kid,” he told Lawrence Biemiller in the Chronicle of Higher Education. “Maybe it has to do with creating your own world. For some people it’s easier to create a world that you can rely on, that travels with you.” Phillips entered Harvard University on a scholarship, where he studied Latin and Greek. For a long time he did not write any poetry, but in 1990, while coming to terms with his homosexuality, he rediscovered his poetic voice.`
   },
   {
     "id": 3,
@@ -131,7 +135,9 @@ const poemData = [
       "you are terrifying",
       "and strange and beautiful",
       "something not everyone knows how to love."
-    ]
+    ],
+    "bio":
+      `According to Alexis Okeowo in the New Yorker, Shire’s work “embodies the kind of shape-shifting, culture-juggling spirit lurking in most people who can’t trace their ancestors to their country’s founding fathers, or whose ancestors look nothing like those fathers. In that limbo, Shire conjures up a new language for belonging and displacement.” Shire’s poems connect gender, war, sex, and cultural assumptions; in her work, poetry is a healing agent for the trauma of exile and suffering. In an interview, Shire noted, “Character driven poetry is important for me—it’s being able to tell the stories of those people, especially refugees and immigrants, that otherwise wouldn’t be told, or they’ll be told really inaccurately. And I don’t want to write victims, or martyrs, or vacuous stereotypes … my family are really amazing—they’ll tell me, ‘I have a new story for you,’ and I’ll get my Dictaphone and record it, so I can stay as true as possible to the story before I make it into a poem.`
   },
   {
     "id": 4,
@@ -186,7 +192,9 @@ const poemData = [
         "years yet to come I see you map",
         "my sky the light your lantern long",
         "ahead and I follow I follow"
-    ]
+    ],
+    "bio":
+      `Fatimah Asghar is a Pakistani, Kashmiri, Muslim American writer. She is the author of the chapbook After (YesYes Books, 2015) and the writer and co-creator of the web series Brown Girls. She is a member of the Dark Noise Collective.`
   },
   {
     "id": 5,
@@ -227,7 +235,9 @@ const poemData = [
       "",
       "I can’t answer it all,",
       "But my mask grows taller every year."
-    ]
+    ],
+    "bio":
+      `Mai Der Vang is the 2016 winner of the Walt Whitman Award from the Academy of American Poets. Her first book, Afterland, will be published by Graywolf Press in April.`
   },
   {
     "id": 6,
@@ -305,7 +315,9 @@ const poemData = [
       "I let it loose . . .",
       "and beyond",
       "me."
-    ]
+    ],
+    "bio":
+      `Jess is the rare poet who bridges slam and academic poetry. His first collection, leadbelly (2005), an exploration of the blues musician Huddie “Lead Belly” Ledbetter’s life, was chosen for the National Poetry Series by Brigit Pegeen Kelly, and was voted one of the top three poetry books of the year by Black Issues Book Review. A reviewer for Publishers Weekly noted that “the collection’s strength lies in its contradictory forms; from biography to lyric to hard-driving prose poem, boast to song, all are soaked in the rhythm and dialect of Southern blues and the demands of honoring one’s talent." Jess's forthcoming book Olio is set to arrive in 2016.`
   },
   {
     "id": 7,
@@ -326,7 +338,9 @@ const poemData = [
       "to sleep like a snow-covered road",
       "winding through pines older than him,",
       "without any travelers, and lonely for no one."
-    ]
+    ],
+    "bio":
+      `Influenced by the classical Chinese poets Li Bo and Tu Fu, Lee’s poetry is noted for its use of silence and, according to Alex Lemon in the Minneapolis Star Tribune, its “near mysticism” which is nonetheless “fully engaged in life and memory while building and shaping the self from words.” Though sometimes described as a supremely lyric poet, Lee’s poems often use narrative and personal experience or memories to launch their investigations of the universal. Lee talked about his belief in the oneness of all things in an interview with Tina Chang for the Academy of American Poets: “If you rigorously dissect it, you realize that everything is a shape of the totality of causes. What’s another name for the totality of causes? The Cosmos. So everything is a shape of Cosmos or God. It feels like something bigger than me—that I can’t possibly fathom but am embedded in.`
   },
   {
     "id": 8,
@@ -352,7 +366,9 @@ const poemData = [
       "the alarming waters, there you can bathe, you can play,",
       "you can even join in on the gossip—the mist, that is,",
       "the mist becomes central to your existence."
-    ]
+    ],
+    "bio":
+      `In a 2004 interview at CSU-Fresno, Herrera noted the influences of three distinct Californias—the small agricultural towns of the San Joaquin Valley he knew as a child, San Diego’s Logan Heights, and San Francisco’s Mission District—on his work: “all these landscapes became stories, and all those languages became voices in my writing, all those visuals became colors and shapes, which made me more human and gave me a wide panorama to work from.” Influenced by Allen Ginsberg, Herrera’s poetry brims with simultaneity and exuberance, and often takes shape in mural-like, rather than narrative, frames. Critic Stephen Burt praised Herrera in the New York Times as one of the first poets to successfully create “a new hybrid art, part oral, part written, part English, part something else: an art grounded in ethnic identity, fueled by collective pride, yet irreducibly individual too.`
   },
   {
     "id": 9,
@@ -372,7 +388,9 @@ const poemData = [
       "Her surface is a deflection is why.",
       "Harm on her, harm on us all.",
       "Inside her, my grit and timbre, my reckless."
-    ]
+    ],
+    "bio":
+      `Giménez Smith’s work explores issues affecting the lives of females, including Latina identity, and frequently references myth and memory. Wolf Schneider, writing in New Mexico Magazine, described Giménez Smith’s poetry as “waves of free verse, incantation and song.” With the publication of Odalisque in Pieces,Giménez Smith was featured as a New American Poet on the Poetry Society of America’s website. Her poems have been included in the anthologies Floricanto Si! U.S. Latina Poets (1998) and Contextos: Poemas (1994).`
   },
   {
     "id": 10,
@@ -424,7 +442,11 @@ const poemData = [
       "bet you know their first names.",
       "bet your house has a hundred rooms.",
       "bet a black lady comes to clean them."
-    ]
+    ],
+    "bio":
+      `Called “a modern-day Renaissance woman” by the Chicago Sun-Times, Jamila Woods is a poet, singer, and teaching artist. She is a Pushcart Prize nominee, and her poetry has been published by MUZZLE, Third World Press, and Poetry magazine. She is the associate artistic director of Young Chicago Authors and a founding member of its Teaching Artist Corps.
+
+Woods is a member of Dark Noise, a collective of poets & educators of color. She is also the frontwoman of the Chicago-based soul duo M&O, whose music has been featured in SPIN, OkayPlayer, JET, and Ebony. In 2015, she was awarded a Ruth Lilly and Dorothy Sargent Rosenberg Poetry Fellowship from the Poetry Foundation. Woods lives in Chicago.`
   },
 ]
 
