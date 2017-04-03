@@ -6,3 +6,5 @@ Verse is a mobile app that randomly generates a poem by a poet of color. You can
 - Used React Native and React Navigation to define application’s navigation structure and render screens
 - Integrated Google Translate API to translate a poem to a language of choice
 
+![Home screen](/Verse-home.png)
+![Translated screen](/Verse-translated.png)
